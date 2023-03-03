@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootParamListType} from '../../navigation';
+import {HomeStackParamListType} from '../../navigation/RouteParamsType';
 
 import MapboxGL from '@rnmapbox/maps';
 
@@ -11,27 +11,25 @@ MapboxGL.setAccessToken(
 );
 
 type NavigationProps = NativeStackScreenProps<
-  RootParamListType
+  HomeStackParamListType,
   'DestinationScreen'
 >;
 
-
-const DestinationScreen: FC<NavigationProps> = ({navigation}) => {
-
+const DestinationScreen: FC<NavigationProps> = ({}) => {
   return (
-    <View>
-        <View style={styles.container}>
+    <View style={styles.container}>
+      <View style={styles.mapContainer}>
         <MapboxGL.MapView style={styles.map} />
       </View>
     </View>
   );
-}
+};
 
 export default DestinationScreen;
 
 const styles = StyleSheet.create({
-  container:{flex: 1,},
-  container: {
+  container: {flex: 1},
+  mapContainer: {
     height: '100%',
     width: '100%',
   },
