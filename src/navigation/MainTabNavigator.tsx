@@ -99,13 +99,11 @@ function BottomTabs() {
       initialRouteName={'HomeStack'}
       tabBar={props => <CustomTabBar {...props} />}
       backBehavior={'initialRoute'}
-      screenOptions={
-        {
-          // tabBarActiveTintColor: Colors.primaryColor,
-          // tabBarInactiveTintColor: Colors.iconInactiveColor,
-          // headerShown: false,
-        }
-      }>
+      screenOptions={{
+        // tabBarActiveTintColor: Colors.primaryColor,
+        // tabBarInactiveTintColor: Colors.iconInactiveColor,
+        headerShown: false,
+      }}>
       <Tab.Screen
         options={{
           tabBarLabel: 'Home',
