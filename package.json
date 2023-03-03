@@ -10,8 +10,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "@rnmapbox/maps": "rnmapbox/maps#main",
     "react": "18.2.0",
-    "react-native": "0.71.3"
+    "react-native": "0.71.3",
+    "react-native-maps": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
