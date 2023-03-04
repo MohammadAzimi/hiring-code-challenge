@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator<BottomTabParamListType>();
 
 const rippleEffect = {
   foreground: false,
-  // color: Colors.primaryLightColor,
+  color: 'dodgerblue',
   borderless: true,
 };
 
@@ -74,8 +74,13 @@ function CustomTabBar({state, descriptors, navigation}: BottomTabBarProps) {
             <View>
               {/* {isFocused ? options.tabBarIconActive : options.tabBarIcon} */}
               <Icon
-                // @ts-ignore
-                name={options.tabBarIconName!}
+                name={
+                  isFocused
+                    ? // @ts-ignore
+                      options.tabBarIconName
+                    : // @ts-ignore
+                      options.tabBarIconName + '-outline'
+                }
                 size={24}
                 color={isFocused ? 'dodgerblue' : 'gray'}
               />
@@ -108,7 +113,7 @@ function BottomTabs() {
         options={{
           tabBarLabel: 'Home',
           //@ts-ignore
-          tabBarIconName: 'home-outline',
+          tabBarIconName: 'home',
         }}
         name={'HomeStack'}
         component={HomeStack}
@@ -117,7 +122,7 @@ function BottomTabs() {
         options={{
           tabBarLabel: 'Orders',
           //@ts-ignore
-          tabBarIconName: 'cube-outline',
+          tabBarIconName: 'cart',
         }}
         name={'OrderScreen'}
         component={OrdersScreen}
