@@ -1,6 +1,9 @@
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {FC} from 'react';
 import {Pressable, StyleSheet, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {HomeStackParamListType} from '../../../navigation/RouteParamsType';
 
 interface CardProps {
   iconName: string;
@@ -8,9 +11,14 @@ interface CardProps {
   imageUri: string;
 }
 
+type NavigationType = NativeStackScreenProps<HomeStackParamListType>;
 const Card: FC<CardProps> = ({iconName, name}) => {
+  const navigation = useNavigation<NavigationType['navigation']>();
+
   return (
-    <Pressable style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={() => navigation.navigate('ProductListScreen')}>
       <Icon name={iconName} size={56} color={'dodgerblue'} />
       {/* <Image source={{uri: imageUri}} style={styles.image} /> */}
       <Text>{name}</Text>
