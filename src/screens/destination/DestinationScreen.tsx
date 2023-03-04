@@ -9,6 +9,7 @@ import {useAppDispatch} from '../../redux';
 import {Order} from '../../types';
 import {MOCK_PRODUCTS} from '../../utils/data';
 import {orderSlice} from '../../redux/slices';
+import {addOrderOperator} from '../../components/processor';
 
 MapboxGL.setWellKnownTileServer('Mapbox');
 MapboxGL.setAccessToken(
@@ -47,6 +48,8 @@ const DestinationScreen: FC<NavigationProps> = ({navigation, route}) => {
       'pending',
     );
     dispatch(orderSlice.actions.add(order));
+    // notify MOCK_REPOSITORY
+    addOrderOperator({...order});
     //@ts-ignore
     navigation.navigate('OrderScreen');
   };

@@ -20,6 +20,14 @@ const orderSlice = createSlice({
       const index = state.orders.findIndex(v => v.id === action.payload.id);
       state.orders.slice(index, 1);
     },
+    update: (state, action: PayloadAction<Order>) => {
+      const index = state.orders.findIndex(v => v.id === action.payload.id);
+      const copy = [...state.orders];
+      copy[index] = action.payload;
+      return {
+        orders: [...copy],
+      };
+    },
     clear: state => {
       state.orders = [];
     },
