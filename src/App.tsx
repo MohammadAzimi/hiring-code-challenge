@@ -7,9 +7,15 @@
 
 import React from 'react';
 import AppNavigator from './navigation/AppNavigator';
+import {store} from './redux';
+import {Provider} from 'react-redux';
 
 function App(): JSX.Element {
-  return <AppNavigator />;
+  return (
+    <Provider store={store}>
+      <AppNavigator />
+    </Provider>
+  );
 }
 
 export default App;
