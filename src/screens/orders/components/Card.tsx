@@ -1,12 +1,10 @@
 import React, {FC} from 'react';
 import {View, StyleSheet, Text, Image} from 'react-native';
 // import Icon from 'react-native-vector-icons/Ionicons';
-import {useInterval} from '../../../components/interval';
-import {getOrderByIdOperator} from '../../../components/processor';
-import {useAppDispatch} from '../../../redux';
-import {orderSlice} from '../../../redux/slices';
+
 import {Order} from '../../../types';
 import {numberWithCommas} from '../../../utils/Helper';
+import {useOrderUpdate} from '../hooks/useOrderUpdate';
 
 interface CardProps {
   item: Order;
@@ -30,16 +28,8 @@ const convertStatusToNumber = (
 };
 
 const Card: FC<CardProps> = ({item}) => {
-  const reduxDispatch = useAppDispatch();
+  useOrderUpdate(item);
 
-  const fetch = () => {
-    let data = getOrderByIdOperator(item.id);
-    if (data && item.status !== data.status) {
-      reduxDispatch(orderSlice.actions.update({...data}));
-    }
-  };
-
-  useInterval(fetch, 5000);
   const getStatusColor = (status: number, targetStatus: string) => {
     // @ts-ignore
     const target = convertStatusToNumber(targetStatus);
