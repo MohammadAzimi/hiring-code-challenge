@@ -56,11 +56,9 @@ const Card: FC<CardProps> = ({item}) => {
       <View style={styles.content}>
         <Image source={{uri: item.imageUri}} style={styles.image} />
         <Text style={styles.title}>{item.name}</Text>
-        <View style={[styles.row]}>
-          <Text style={styles.price}>
-            {'Paid: ' + numberWithCommas(item.price) + ' $'}
-          </Text>
-        </View>
+        <Text style={styles.price}>
+          {'Paid: ' + numberWithCommas(item.price) + ' $'}
+        </Text>
       </View>
       <View style={[styles.deliveryChart]}>
         <View style={[styles.row]}>
@@ -146,7 +144,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 8,
-    fontSize: 18,
+    fontSize: 16,
     color: 'black',
     fontWeight: '700',
   },
