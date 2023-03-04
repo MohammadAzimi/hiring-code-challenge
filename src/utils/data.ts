@@ -2,6 +2,24 @@ import uuid from 'react-native-uuid';
 import {faker} from '@faker-js/faker';
 import {Category} from '../types';
 import {Product} from '../types/Product';
+import {Images} from '../assets/images';
+
+const getImage = (index: number) => {
+  switch (index) {
+    case 0:
+      return Images.Clothes;
+    case 1:
+      return Images.Flowers;
+    case 2:
+      return Images.Toys;
+    case 3:
+      return Images.Mobiles;
+    case 4:
+      return Images.Shoes;
+    case 5:
+      return Images.Paintings;
+  }
+};
 
 export const MOCK_CATEGORIES: Category[] = new Array(6)
   .fill({
@@ -10,12 +28,12 @@ export const MOCK_CATEGORIES: Category[] = new Array(6)
     id: '',
     imageUri: '',
   })
-  .map(_ => {
+  .map((_, index) => {
     return {
       name: faker.commerce.product(),
       iconName: 'nutrition-outline',
       id: uuid.v4() as string,
-      imageUri: faker.image.business(512, 512, true),
+      imageUri: getImage(index),
     };
   });
 
