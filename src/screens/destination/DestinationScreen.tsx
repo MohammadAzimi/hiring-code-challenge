@@ -1,10 +1,14 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useRef} from 'react';
 import {View, StyleSheet, Text, Pressable} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {HomeStackParamListType} from '../../navigation/RouteParamsType';
 
 import MapboxGL from '@rnmapbox/maps';
+import {useAppDispatch} from '../../redux';
+import {Order} from '../../types';
+import {MOCK_PRODUCTS} from '../../utils/data';
+import {orderSlice} from '../../redux/slices';
 
 MapboxGL.setWellKnownTileServer('Mapbox');
 MapboxGL.setAccessToken(
@@ -19,11 +23,34 @@ type NavigationProps = NativeStackScreenProps<
 const PIN_SIZE = 32;
 const INITIAL_COORDS = [51.3857, 35.7019];
 
-const DestinationScreen: FC<NavigationProps> = ({navigation}) => {
+const DestinationScreen: FC<NavigationProps> = ({navigation, route}) => {
   const [layout, setLayout] = useState<{
     width: number | null;
     height: number | null;
   }>({width: null, height: null});
+
+  const mapRef = useRef<MapboxGL.MapView>(null);
+  const dispatch = useAppDispatch();
+
+  const onSubmit = async () => {
+    const productId = route.params.productId ?? '';
+    const selectedCoords = await mapRef.current?.getCenter();
+    const index = MOCK_PRODUCTS.findIndex(v => v.id === productId);
+    const product = MOCK_PRODUCTS[index];
+    const order = new Order(
+      productId,
+      product.name,
+      product.imageUri,
+      product.price,
+      product.discount,
+      selectedCoords as [number, number],
+      'pending',
+    );
+    dispatch(orderSlice.actions.add(order));
+    //@ts-ignore
+    navigation.navigate('OrderScreen');
+  };
+
   return (
     <View style={styles.container}>
       <View
@@ -34,7 +61,7 @@ const DestinationScreen: FC<NavigationProps> = ({navigation}) => {
             height: e.nativeEvent.layout.height,
           })
         }>
-        <MapboxGL.MapView style={styles.map}>
+        <MapboxGL.MapView style={styles.map} ref={mapRef}>
           <MapboxGL.Camera zoomLevel={11} centerCoordinate={INITIAL_COORDS} />
         </MapboxGL.MapView>
         {!!layout.width && !!layout.height && (
@@ -54,10 +81,7 @@ const DestinationScreen: FC<NavigationProps> = ({navigation}) => {
       </View>
       <View style={styles.bottomContainer}>
         <Text>{'Select your delivery location to submit your order'}</Text>
-        <Pressable
-          style={styles.buttonContainer}
-          // @ts-ignore
-          onPress={() => navigation.navigate('OrderScreen')}>
+        <Pressable style={styles.buttonContainer} onPress={onSubmit}>
           <Text style={styles.buttonText}>{'Submit'}</Text>
         </Pressable>
       </View>

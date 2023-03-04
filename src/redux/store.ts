@@ -1,14 +1,16 @@
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
 import {combineReducers} from 'redux';
 // import autoMergeLevel1 from 'redux-persist/lib/stateReconciler/autoMergeLevel1';
-import {exampleSlice} from './slices';
+import {exampleSlice, orderSlice} from './slices';
 
 // slices
 const {reducer: exampleReducer} = exampleSlice;
+const {reducer: orderReducer} = orderSlice;
 
 // reducer
 const rootReducer = combineReducers({
   countState: exampleReducer,
+  orderState: orderReducer,
 });
 
 // middleware

@@ -4,7 +4,7 @@ import {NavigatorScreenParams} from '@react-navigation/native';
 export type HomeStackParamListType = {
   HomeScreen: undefined;
   ProductListScreen: undefined;
-  DestinationScreen: undefined;
+  DestinationScreen: {productId: string};
 };
 
 export type BottomTabParamListType = {

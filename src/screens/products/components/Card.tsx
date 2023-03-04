@@ -27,7 +27,9 @@ const Card: FC<CardProps> = ({item}) => {
           </Text>
           <Pressable
             style={styles.buyButton}
-            onPress={() => navigation.navigate('DestinationScreen')}>
+            onPress={() =>
+              navigation.navigate('DestinationScreen', {productId: item.id})
+            }>
             <Text style={styles.buyText}>{'Buy'}</Text>
           </Pressable>
         </View>
